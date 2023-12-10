@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kedademo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kedademo
+  template:
+    metadata:
+      labels:
+        app: kedademo
+    spec:
+      containers:
+        - name: kedademo
+          image: kedademo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082

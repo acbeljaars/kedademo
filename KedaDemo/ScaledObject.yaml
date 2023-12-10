@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1 # note: keda.k8s.io/v1alpha1 is for KEDA V1 only!
+kind: ScaledObject
+metadata:
+  name: spring-boot-scaler
+spec:
+  scaleTargetRef:
+    name: kedademo
+  pollingInterval: 5
+  cooldownPeriod: 30
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: prometheus
+      metadata: 
+        serverAddress: "http://docker.for.mac.localhost:9090"
+        metricName: "endpoint_hits_total"
+        threshold: "10"
+        query: sum(rate(endpoint_hits_total[1m]))

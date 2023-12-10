@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kedademo-service
+  # namespace: keda
+spec:
+  selector:
+    app: kedademo
+  ports:
+    - protocol: TCP
+      port: 8082  # Port exposed by your Spring Boot application
+      targetPort: 8082  # Port your application is listening on inside the pod
+  type: NodePort  # Exposes the service on a random node port on your cluster nodes
